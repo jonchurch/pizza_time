@@ -1,0 +1,14 @@
+{
+  "name": "pizza_time",
+  "version": "0.0.0",
+  "description": "Pomodoro Timer for your most pasta self",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jon Church",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
