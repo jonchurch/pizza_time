@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 
     function startCountdown() {
-        
+
         _start.attr('disabled', true);
         _start.addClass('disabled');
         //I need to associate a number with these id's somehow..
@@ -33,18 +33,20 @@ $(document).ready(function() {
 
             if (secNum === 0) {
                 //if secNum at zero, change seconds to 59 and reduce mins by 1
-                minNum - 1;
+                minNum -= 1;
                 secNum = 59;
             } else {
                 if (secNum <= 10) {
                     //if secNum is 10, set left sec to zero, reduce secNum by 1
-                    secNum - 1;
+                    secNum -= 1;
                 } else {
                     //reduce secNum by 1
-                    secNum - 1;
+                    secNum -= 1;
                 }
             }
+            emojiTime(minNum, secNum) {
 
+            }
 
         }, 1000);
 
