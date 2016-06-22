@@ -12,14 +12,17 @@ $(document).ready(function() {
 
 
     function startCountdown() {
-        //start it from 25:00
+        
         _start.attr('disabled', true);
         _start.addClass('disabled');
         //I need to associate a number with these id's somehow..
         //_.removeClass('em-' + )
+
+        //start timer from 25:00
+        var minsNum = 25;
+        var secNum = 0;
+
         var countinterval = setInterval(function() {
-            var minsNum = 25;
-            var secNum = 0;
 
             if (secNum === 0 && minsNum === 0) {
                 breakBtn.removeClass('disabled');
@@ -34,10 +37,10 @@ $(document).ready(function() {
                 secNum = 59;
             } else {
                 if (secNum <= 10) {
-                	//if secNum is 10, set left sec to zero, reduce secNum by 1
-                    secNum- 1;
+                    //if secNum is 10, set left sec to zero, reduce secNum by 1
+                    secNum - 1;
                 } else {
-                	//reduce secNum by 1
+                    //reduce secNum by 1
                     secNum - 1;
                 }
             }
