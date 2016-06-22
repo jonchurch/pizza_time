@@ -30,15 +30,15 @@ $(document).ready(function() {
 
             if (secNum === 0) {
                 //if secNum at zero, change seconds to 59 and reduce mins by 1
-                // minutes.text(minutesVal - 1);
-                // seconds.text(59);
+                minNum - 1;
+                secNum = 59;
             } else {
                 if (secNum <= 10) {
                 	//if secNum is 10, set left sec to zero, reduce secNum by 1
-                    // seconds.text("0" + (secNum- 1));
+                    secNum- 1;
                 } else {
                 	//reduce secNum by 1
-                    //seconds.text(secNum - 1);
+                    secNum - 1;
                 }
             }
 
