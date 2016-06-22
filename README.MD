@@ -10,7 +10,7 @@
 emojiTime
 consists of:
 Parsing number into digits
-Digits into a string
+#Digits into a string
 applying strings to the correct i tag class
 
 each loop of the countdown will update the emojis
