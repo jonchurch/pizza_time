@@ -6,3 +6,11 @@
 6. User can start timer from slack
 7. When users visit on their phones, the timer will take up about 1/3 of the screen
 8. User can click a call to action ...
+
+emojiTime
+consists of:
+Parsing number into digits
+Digits into a string
+applying strings to the correct i tag class
+
+each loop of the countdown will update the emojis
