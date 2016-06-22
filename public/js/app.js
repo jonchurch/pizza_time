@@ -10,6 +10,8 @@ $(document).ready(function() {
     _start.on('click', startCountdown);
     _break.on('click', breakStart);
 
+    var minNum = 25;
+    var secNum = 0;
 
     function startCountdown() {
 
@@ -19,12 +21,10 @@ $(document).ready(function() {
         //_.removeClass('em-' + )
 
         //start timer from 25:00
-        var minsNum = 25;
-        var secNum = 0;
 
         var countinterval = setInterval(function() {
 
-            if (secNum === 0 && minsNum === 0) {
+            if (secNum === 0 && minNum === 0) {
                 breakBtn.removeClass('disabled');
                 breakBtn.removeAttr('disabled');
                 clearInterval(countinterval);
@@ -32,7 +32,7 @@ $(document).ready(function() {
             }
 
             if (secNum === 0) {
-                //if secNum at zero, change seconds to 59 and reduce mins by 1
+                //if secNum at zero, change seconds to 59 and reduce min by 1
                 minNum -= 1;
                 secNum = 59;
             } else {
@@ -44,12 +44,13 @@ $(document).ready(function() {
                     secNum -= 1;
                 }
             }
+
             emojiTime(minNum, secNum);
 
 
-        }, 1000);
+        }, 1000); //end setInterval
 
-    }
+    } //end startCountdown
 
     function breakStart() {
         //start break from 5:00, unless it is the third break
@@ -61,46 +62,26 @@ $(document).ready(function() {
 
     }
 
-//From SA Author: naomik http://stackoverflow.com/questions/14766951/convert-digits-into-words-with-javascript
-var toWords = function toWords(n) {
-  if (n == 0) return 'zero';
-  var a = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-  var b = ['', '', 'twenty', 'thirty', 'fourty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-  var g = ['', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 'sextillion', 'septillion', 'octillion', 'nonillion'];
-  var grp = function grp(n) {
-    return ('000' + n).substr(-3);
-  };
-  var rem = function rem(n) {
-    return n.substr(0, n.length - 3);
-  };
-  var fmt = function fmt(_ref) {
-    var h = _ref[0];
-    var t = _ref[1];
-    var o = _ref[2];
+    function emojiTime() {
 
-    return [Number(h) === 0 ? '' : a[h] + ' hundred ', Number(o) === 0 ? b[t] : b[t] && b[t] + '-' || '', a[t + o] || a[o]].join('');
-  };
-  var cons = function cons(xs) {
-    return function (x) {
-      return function (g) {
-        return x ? [x, g && ' ' + g || '', ' ', xs].join('') : xs;
-      };
-    };
-  };
-  var iter = function iter(str) {
-    return function (i) {
-      return function (x) {
-        return function (r) {
-          if (x === '000' && r.length === 0) return str;
-          return iter(cons(str)(fmt(x))(g[i]))(i + 1)(grp(r))(rem(r));
-        };
-      };
-    };
-  };
-  return iter('')(0)(grp(String(n)))(rem(String(n)));
-};
+    }
 
-console.log(toWords(25));
+
+    /*
+     * function: digiSplit(num){}
+     * P@Number num  (59)
+     * R@Array output  [5,9]
+     * Splits numbers into digits! 
+     */
+    function digiSplit(number) {
+        var output = [],
+            sNumber = number.toString();
+
+        for (var i = 0, len = sNumber.length; i < len; i += 1) {
+            output.push(+sNumber.charAt(i));
+        }
+        return output;
+    }
 
 
 });

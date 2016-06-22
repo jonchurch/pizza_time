@@ -9,8 +9,13 @@
 
 emojiTime
 consists of:
+<<<<<<< HEAD
 Parsing number into digits
 #Digits into a string
+=======
+#Parsing number into digits
+Digits into a string
+>>>>>>> master
 applying strings to the correct i tag class
 
 each loop of the countdown will update the emojis
