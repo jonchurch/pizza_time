@@ -10,6 +10,8 @@ $(document).ready(function() {
     _start.on('click', startCountdown);
     _break.on('click', breakStart);
 
+    var minNum = 25;
+    var secNum = 0;
 
     function startCountdown() {
 
@@ -19,12 +21,10 @@ $(document).ready(function() {
         //_.removeClass('em-' + )
 
         //start timer from 25:00
-        var minsNum = 25;
-        var secNum = 0;
 
         var countinterval = setInterval(function() {
 
-            if (secNum === 0 && minsNum === 0) {
+            if (secNum === 0 && minNum === 0) {
                 breakBtn.removeClass('disabled');
                 breakBtn.removeAttr('disabled');
                 clearInterval(countinterval);
@@ -32,7 +32,7 @@ $(document).ready(function() {
             }
 
             if (secNum === 0) {
-                //if secNum at zero, change seconds to 59 and reduce mins by 1
+                //if secNum at zero, change seconds to 59 and reduce min by 1
                 minNum -= 1;
                 secNum = 59;
             } else {
@@ -44,13 +44,12 @@ $(document).ready(function() {
                     secNum -= 1;
                 }
             }
-            emojiTime(minNum, secNum) {
 
-            }
+            emojiTime(minNum, secNum);
 
-        }, 1000);
+        }, 1000); //end setInterval
 
-    }
+    } //end startCountdown
 
     function breakStart() {
         //start break from 5:00, unless it is the third break
@@ -60,6 +59,27 @@ $(document).ready(function() {
         //start break countdown
         startCountdown();
 
+    }
+
+    function emojiTime() {
+
+    }
+
+
+    /*
+     * function: digiSplit(num){}
+     * P@Number num  (59)
+     * R@Array output  [5,9]
+     * Splits numbers into digits! 
+     */
+    function digiSplit(number) {
+        var output = [],
+            sNumber = number.toString();
+
+        for (var i = 0, len = sNumber.length; i < len; i += 1) {
+            output.push(+sNumber.charAt(i));
+        }
+        return output;
     }
 
 });

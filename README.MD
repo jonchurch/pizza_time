@@ -9,7 +9,7 @@
 
 emojiTime
 consists of:
-Parsing number into digits
+#Parsing number into digits
 Digits into a string
 applying strings to the correct i tag class
 
