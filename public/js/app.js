@@ -11,8 +11,8 @@ $(document).ready(function() {
     _break.on('click', breakStart);
 
     //start timer from 25:00
-    var minNum = 0;
-    var secNum = 3;
+    var minNum = 25;
+    var secNum = 0;
 
     function startCountdown() {
         //disable the start button
@@ -58,8 +58,8 @@ console.log(breakCount);
             minNum = 15;
             secNum = 0;
         } else {
-            minNum = 0;
-            secNum = 7;
+            minNum = 5;
+            secNum = 0;
         }
 
         breakCount++;
