@@ -9,6 +9,10 @@ html{
 	font-size: 70px;
 }
 
+#timer i {
+	margin-right: -7px;
+}
+
 button#start, button#break {
 	margin-bottom: 20px;
 	height: 50px;
