@@ -5,31 +5,29 @@ $(document).ready(function() {
     var _minRight = $('#minutes-right');
     var _secLeft = $('#seconds-left');
     var _secRight = $('#seconds-right');
-    var breakCount = 0;
+    var breakCount = 1;
 
     _start.on('click', startCountdown);
     _break.on('click', breakStart);
 
-
+    //start timer from 25:00
+    var minNum = 0;
+    var secNum = 3;
 
     function startCountdown() {
         //disable the start button
         _start.attr('disabled', true);
         _start.addClass('disabled');
-        //I need to associate a number with these id's somehow..
-        //_.removeClass('em-' + )
 
-        //start timer from 25:00
-        var minNum = 25;
-        var secNum = 0;
+console.log(breakCount);
 
         var countinterval = setInterval(function() {
 
             //update emoji first so we get the 25:00
             emojiTime(minNum, secNum);
             if (secNum === 0 && minNum === 0) {
-                breakBtn.removeClass('disabled');
-                breakBtn.removeAttr('disabled');
+                _break.removeClass('disabled');
+                _break.removeAttr('disabled');
                 clearInterval(countinterval);
                 return;
             }
@@ -56,10 +54,18 @@ $(document).ready(function() {
         _break.attr('disabled', true);
         _break.addClass('disabled');
 
-        //start break countdown
+        if (breakCount % 3 === 0) {
+            minNum = 15;
+            secNum = 0;
+        } else {
+            minNum = 0;
+            secNum = 7;
+        }
+
+        breakCount++;
         startCountdown();
 
-    }//end breakStart
+    } //end breakStart
 
     function emojiTime(mins, sec) {
         //split mins and sec supplied into arrays of digits
@@ -68,13 +74,16 @@ $(document).ready(function() {
 
         if (sec_arr.length < 2) {
             //make sure that there are two digits in sec array
-            sec_arr.push(0);
+            sec_arr.unshift(0);
+        }
+        if (min_arr.length < 2) {
+            min_arr.unshift(0);
         }
 
         updateClass(min_arr, sec_arr);
 
 
-    }//end emojiTime
+    } //end emojiTime
 
 
 
@@ -94,71 +103,67 @@ $(document).ready(function() {
         return output;
     }
 
-    
+
 
     function updateClass(mins, secs) {
-        
-            //clear the em-number class
-            _minLeft.removeClass(wildcard);
-            _minRight.removeClass(wildcard);
-            _secLeft.removeClass(wildcard);
-            _secRight.removeClass(wildcard);
 
-            //add correct em-number class to each digit
-            _minLeft.addClass('em-' + toWords(mins[0]));
-            _minRight.addClass('em-' + toWords(mins[1]));
-            _secLeft.addClass('em-' + toWords(secs[0]));
-            _secRight.addClass('em-' + toWords(secs[1]));
-            console.log(mins,secs);
+        //clear the em-number class
+        _minLeft.removeClass(wildcard).addClass('em-' + toWords(mins[0]));
+        _minRight.removeClass(wildcard).addClass('em-' + toWords(mins[1]));
+        _secLeft.removeClass(wildcard).addClass('em-' + toWords(secs[0]));
+        _secRight.removeClass(wildcard).addClass('em-' + toWords(secs[1]));
 
-    }//end updateClass
+        //add correct em-number class to each digit
 
 
-// looks for em- 
-var wildcard = function emWildcard(index, css) {
+    } //end updateClass
+
+
+    // looks for em- 
+    var wildcard = function emWildcard(index, css) {
         return (css.match(/(^|\s)em-\S+/g) || []).join(' ');
     };
 
-        //From SA Author: naomik http://stackoverflow.com/questions/14766951/convert-digits-into-words-with-javascript
+    //From SA Author: naomik http://stackoverflow.com/questions/14766951/convert-digits-into-words-with-javascript
     var toWords = function toWords(n) {
-            if (n == 0) return 'zero';
-            var a = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-            var b = ['', '', 'twenty', 'thirty', 'fourty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-            var g = ['', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 'sextillion', 'septillion', 'octillion', 'nonillion'];
-            var grp = function grp(n) {
-                return ('000' + n).substr(-3);
-            };
-            var rem = function rem(n) {
-                return n.substr(0, n.length - 3);
-            };
-            var fmt = function fmt(_ref) {
-                var h = _ref[0];
-                var t = _ref[1];
-                var o = _ref[2];
-
-                return [Number(h) === 0 ? '' : a[h] + ' hundred ', Number(o) === 0 ? b[t] : b[t] && b[t] + '-' || '', a[t + o] || a[o]].join('');
-            };
-            var cons = function cons(xs) {
-                return function(x) {
-                    return function(g) {
-                        return x ? [x, g && ' ' + g || '', ' ', xs].join('') : xs;
-                    };
-                };
-            };
-            var iter = function iter(str) {
-                return function(i) {
-                    return function(x) {
-                        return function(r) {
-                            if (x === '000' && r.length === 0) return str;
-                            return iter(cons(str)(fmt(x))(g[i]))(i + 1)(grp(r))(rem(r));
-                        };
-                    };
-                };
-            };
-            return iter('')(0)(grp(String(n)))(rem(String(n)));
+        if (n == 0) return 'zero';
+        var a = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+        var b = ['', '', 'twenty', 'thirty', 'fourty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+        var g = ['', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 'sextillion', 'septillion', 'octillion', 'nonillion'];
+        var grp = function grp(n) {
+            return ('000' + n).substr(-3);
         };
+        var rem = function rem(n) {
+            return n.substr(0, n.length - 3);
+        };
+        var fmt = function fmt(_ref) {
+            var h = _ref[0];
+            var t = _ref[1];
+            var o = _ref[2];
+
+            return [Number(h) === 0 ? '' : a[h] + ' hundred ', Number(o) === 0 ? b[t] : b[t] && b[t] + '-' || '', a[t + o] || a[o]].join('');
+        };
+        var cons = function cons(xs) {
+            return function(x) {
+                return function(g) {
+                    return x ? [x, g && ' ' + g || '', ' ', xs].join('') : xs;
+                };
+            };
+        };
+        var iter = function iter(str) {
+            return function(i) {
+                return function(x) {
+                    return function(r) {
+                        if (x === '000' && r.length === 0) return str;
+                        return iter(cons(str)(fmt(x))(g[i]))(i + 1)(grp(r))(rem(r));
+                    };
+                };
+            };
+        };
+        return iter('')(0)(grp(String(n)))(rem(String(n)));
+    };
 
 
 
-    
+
 });
