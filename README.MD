@@ -14,5 +14,4 @@ Digits into a string
 #applying strings to the correct i tag class
 
 #Cleanup
-Woops! I changed my html to not have min_left etc anymore, need to fix that!
-
+So I don't think looping is really necessary on line 104 in app.js

@@ -59,7 +59,7 @@ $(document).ready(function() {
         //start break countdown
         startCountdown();
 
-    }
+    }//end breakStart
 
     function emojiTime(mins, sec) {
         //split mins and sec supplied into arrays of digits
@@ -68,17 +68,15 @@ $(document).ready(function() {
 
         if (sec_arr.length < 2) {
             //make sure that there are two digits in sec array
-            sec_arr.push('0');
+            sec_arr.push(0);
         }
 
         updateClass(min_arr, sec_arr);
 
 
-    }
+    }//end emojiTime
 
 
-
-    //end $.document
 
     /*
      * function: digiSplit(num){}
@@ -96,29 +94,33 @@ $(document).ready(function() {
         return output;
     }
 
-   var wildcard = function emWildcard(index, css) {
-        return (css.match(/(^|\s)color-\S+/g) || []).join(' ');
-    }
+    
 
     function updateClass(mins, secs) {
-        for (i = 0; i < 2; i++) {
+        
             //clear the em-number class
             _minLeft.removeClass(wildcard);
             _minRight.removeClass(wildcard);
             _secLeft.removeClass(wildcard);
             _secRight.removeClass(wildcard);
+
             //add correct em-number class to each digit
-            _minLeft.addClass('em-' + mins[i]);
-            console.log('em-' + mins[i]);
-            console.log('em-' +secs[i]);
-            //Woops! I changed my html to not have min_left etc anymore, need to fix that!
+            _minLeft.addClass('em-' + toWords(mins[0]));
+            _minRight.addClass('em-' + toWords(mins[1]));
+            _secLeft.addClass('em-' + toWords(secs[0]));
+            _secRight.addClass('em-' + toWords(secs[1]));
+            console.log(mins,secs);
 
-        }
+    }//end updateClass
 
 
+// looks for em- 
+var wildcard = function emWildcard(index, css) {
+        return (css.match(/(^|\s)em-\S+/g) || []).join(' ');
+    };
 
         //From SA Author: naomik http://stackoverflow.com/questions/14766951/convert-digits-into-words-with-javascript
-        var toWords = function toWords(n) {
+    var toWords = function toWords(n) {
             if (n == 0) return 'zero';
             var a = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
             var b = ['', '', 'twenty', 'thirty', 'fourty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
@@ -158,5 +160,5 @@ $(document).ready(function() {
 
 
 
-    }
+    
 });
