@@ -23,6 +23,7 @@ $(document).ready(function() {
     function startCountdown() {
         //disable the start button
         _start.hide();
+        //enable pause button
         _pause.show();
 
         countinterval = setInterval(function() {
