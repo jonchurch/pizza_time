@@ -1,14 +1,20 @@
 $(document).ready(function() {
     var _start = $('#start');
+    var _pause = $('#pause')
     var _break = $('#break');
     var _minLeft = $('#minutes-left');
     var _minRight = $('#minutes-right');
     var _secLeft = $('#seconds-left');
     var _secRight = $('#seconds-right');
     var breakCount = 1;
+    var countinterval;
 
     _start.on('click', startCountdown);
     _break.on('click', breakStart);
+    _pause.on('click', pauseButton);
+
+    //when page loads hide the pause button.
+    _pause.hide();
 
     //start timer from 25:00
     var minNum = 25;
@@ -16,12 +22,10 @@ $(document).ready(function() {
 
     function startCountdown() {
         //disable the start button
-        _start.attr('disabled', true);
-        _start.addClass('disabled');
+        _start.hide();
+        _pause.show();
 
-console.log(breakCount);
-
-        var countinterval = setInterval(function() {
+        countinterval = setInterval(function() {
 
             //update emoji first so we get the 25:00
             emojiTime(minNum, secNum);
@@ -46,8 +50,20 @@ console.log(breakCount);
                 }
             }
         }, 1000); //end setInterval
-
     } //end startCountdown
+
+
+
+
+    function pauseButton() {
+        //when timer is going, display stop button
+        //When stop is clicked, timer stops at current number, displays start button 
+        window.clearInterval(countinterval);
+        _pause.hide();
+        _start.show();
+
+
+    }
 
     function breakStart() {
         //start break from 5:00, unless it is the third break
@@ -62,6 +78,7 @@ console.log(breakCount);
             secNum = 0;
         }
 
+        //Keep track of breaks taken
         breakCount++;
         startCountdown();
 
@@ -107,7 +124,7 @@ console.log(breakCount);
 
     function updateClass(mins, secs) {
 
-        //clear the em-number class
+        //clear the em-number class which applies the emoji
         _minLeft.removeClass(wildcard).addClass('em-' + toWords(mins[0]));
         _minRight.removeClass(wildcard).addClass('em-' + toWords(mins[1]));
         _secLeft.removeClass(wildcard).addClass('em-' + toWords(secs[0]));
@@ -119,7 +136,7 @@ console.log(breakCount);
     } //end updateClass
 
 
-    // looks for em- 
+    // looks for 'em-' 
     var wildcard = function emWildcard(index, css) {
         return (css.match(/(^|\s)em-\S+/g) || []).join(' ');
     };

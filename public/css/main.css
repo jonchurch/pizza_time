@@ -13,12 +13,15 @@ html{
 	margin-right: -7px;
 }
 
-button#start, button#break {
+button#start, button#pause, button#break {
 	margin-bottom: 20px;
+	margin-top:0px;
 	height: 50px;
 	font-size: 30px;
 	line-height: 10px;
+
 }
+
 
 
 
